@@ -37,7 +37,7 @@ function citySearch(cityName) {
             var currentWeather = response.weather[0].main;
 
             // The below is for the UV index - we have to call this again using a different API link
-            var queryURLUV = "https://api.openweathermap.org/data/2.5/uvi?&appid=43833fd258805487a99a9cb6665dbbce" + lat  + "&lon=" + lon;
+            var queryURLUV = "https://api.openweathermap.org/data/2.5/uvi?&appid=43833fd258805487a99a9cb6665dbbce" + lat + "&lon=" + lon;
             // the below variables are taken from the location API response
             var lat = response.coord.lat;
             var lon = response.coord.lon;
@@ -50,18 +50,18 @@ function citySearch(cityName) {
                 //    The line below ensures that the field is empty before we enter the requested data
                 $('#uvlDisplay').empty();
                 var uvResults = response.value;
-                
+
                 var uvDisplay = $("<button class='btn bg-success'>").text("UV Index: " + response.value);
 
                 $('#uvlDisplay').html(uvDisplay);
 
             });
 
-// the below uses if and else statements to determine what the weather is and displays the appropriate symbol
+            // the below uses if and else statements to determine what the weather is and displays the appropriate symbol
             if (currentWeather === "Rain") {
                 var currentIcon = $('<img>').attr("src", "http://openweathermap.org/img/wn/09d.png");
                 currentIcon.attr("style", "height: 60px; width: 60px");
-            } 
+            }
             else if (currentWeather === "Drizzle") {
                 var currentIcon = $('<img>').attr("src", "http://openweathermap.org/img/wn/10d.png");
                 currentIcon.attr("style", "height: 60px; width: 60px");
@@ -94,3 +94,68 @@ function citySearch(cityName) {
             $("#weatherToday").html(newDiv);
 
         });
+
+
+// Below is a new function for the the 5 day weather forecast
+// we again need to use AJAX to "GET"(retrieve) data from the queryURL (that we state above) as we will later print this on to the page
+    $.ajax({
+        url: queryURLforecast,
+        method: 'GET'
+    }).then(function (response) {
+        // We want to store the results in an array so we can retrieve these later on
+        var results = response.list;
+        //    The line below ensures that the field is empty before we enter the requested data
+        $("#fiveDayForecast").empty();
+        // We use a loop below to add the results to a list below the search menu.
+        // These need to be buttons so we can click on these and retrieve the data
+        for (var i = 0; i < results.length; i += 8) {
+        
+            var fiveDayDiv = $("<div class='card shadow-lg text-white bg-primary mx-auto mb-10 p-2' style='width: 8.5rem; height: 11rem;'>");
+
+            //Below stores the 
+            var date = results[i].dt_txt;
+            var setD = date.substr(0, 10)
+            var temp = results[i].main.temp;
+            var hum = results[i].main.humidity;
+
+            //Below will hold the data retrieved from the API
+            var h5date = $("<h5 class='card-title'>").text(setD);
+            var pTemp = $("<p class='card-text'>").text("Temp: " + temp);;
+            var pHum = $("<p class='card-text'>").text("Humidity " + hum);;
+
+            var weather = results[i].weather[0].main
+
+// Below are our if statements used the show the weather icons
+            if (weather === "Rain") {
+                var icon = $('<img>').attr("src", "http://openweathermap.org/img/wn/09d.png");
+                icon.attr("style", "height: 40px; width: 40px");
+            }
+            else if (weather === "Clouds") {
+                var icon = $('<img>').attr("src", "http://openweathermap.org/img/wn/03d.png");
+                icon.attr("style", "height: 40px; width: 40px");
+            }
+            else if (weather === "Clear") {
+                var icon = $('<img>').attr("src", "http://openweathermap.org/img/wn/01d.png");
+                icon.attr("style", "height: 40px; width: 40px");
+            }
+            else if (weather === "Drizzle") {
+                var icon = $('<img>').attr("src", "http://openweathermap.org/img/wn/10d.png");
+                icon.attr("style", "height: 40px; width: 40px");
+            }
+            else if (weather === "Snow") {
+                var icon = $('<img>').attr("src", "http://openweathermap.org/img/wn/13d.png");
+                icon.attr("style", "height: 40px; width: 40px");
+            }
+
+            //we use append to attach the items to the tag in the brackets and display this on the page
+            fiveDayDiv.append(h5date);
+            fiveDayDiv.append(icon);
+            fiveDayDiv.append(pTemp);
+            fiveDayDiv.append(pHum);
+            $("#fiveDayForecast").append(fiveDayDiv);
+        }
+
+    });
+
+}
+pageLoad();
