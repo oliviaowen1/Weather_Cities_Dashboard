@@ -1,0 +1,11 @@
+.container {
+    margin-top: auto;
+}
+.weatherToday {
+    float: right;
+    padding: 20px
+}
+.searchLeft {
+    float: Left;
+    padding: 20px
+}
