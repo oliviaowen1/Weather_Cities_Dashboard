@@ -26,4 +26,13 @@ function citySearch(cityName) {
         var mainDate = moment().format('LL');
 
 
-       
+        // We need to print the above information on the page within the main container
+        // the below is asking the city name to display in text, in a h3 tag. It will display the city name as the API responds it as well as displaying the main date from the variable.
+        var displayMainDate = cityNameDisplay.append(" - " + mainDate);
+        // The below all display the API response after the text we ask it to. It will display this within a paragraph as we have asked it to. 
+        var tempDisplay = $("<p>").text("Temperature: " + response.main.temp);
+        var humidDisplay = $("<p>").text("Humidity: " + response.main.humidity);
+        var windDisplay = $("<p>").text("Wind Speed: " + response.wind.speed);
+        var currentweather = response.weather[0].main;
+
+        
