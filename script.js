@@ -86,15 +86,11 @@ function citySearch(cityName) {
                 var currentIcon = $('<img>').attr("src", "http://openweathermap.org/img/wn/50d.png");
                 currentIcon.attr("style", "height: 60px; width: 60px");
             }
-            //create HTML div to append new elements to render on page....
+            //below creates a new div to hold and display all of the above information.
             var newDiv = $('<div>');
 
             newDiv.append(displayMainDate, currentIcon, tempDisplay, humidDisplay, windDisplay);
 
             $("#weatherToday").html(newDiv);
-
-            //--------------------------------------------- UV call ---------------------------------------//
-
-
 
         });
