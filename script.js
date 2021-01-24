@@ -31,31 +31,11 @@ function citySearch(cityName) {
             var cityNameDisplay = $("<h3>").text(response.name);
             var displayMainDate = cityNameDisplay.append(" - " + mainDate);
             // The below all display the API response after the text we ask it to. It will display this within a paragraph as we have asked it to.
-            var tempDisplay = $("<p>").text("Temperature: " + response.main.temp);
-            var humidDisplay = $("<p>").text("Humidity: " + response.main.humidity);
-            var windDisplay = $("<p>").text("Wind Speed: " + response.wind.speed);
+            var tempDisplay = $("<p>").text("Temperature: " + response.main.temp + " °C ");
+            var humidDisplay = $("<p>").text("Humidity: " + response.main.humidity + " % ");
+            var windDisplay = $("<p>").text("Wind Speed: " + response.wind.speed + " MPH ");
             var currentWeather = response.weather[0].main;
 
-            // The below is for the UV index - we have to call this again using a different API link
-            var queryURLUV = "https://api.openweathermap.org/data/2.5/uvi?&appid=43833fd258805487a99a9cb6665dbbce" + lat + "&lon=" + lon;
-            // the below variables are taken from the location API response
-            var lat = response.coord.lat;
-            var lon = response.coord.lon;
-
-
-            $.ajax({
-                url: queryURLUV,
-                method: 'GET'
-            }).then(function (response) {
-                //    The line below ensures that the field is empty before we enter the requested data
-                $('#uvlDisplay').empty();
-                var uvResults = response.value;
-
-                var uvDisplay = $("<button class='btn bg-success'>").text("UV Index: " + response.value);
-
-                $('#uvlDisplay').html(uvDisplay);
-
-            });
 
             // the below uses if and else statements to determine what the weather is and displays the appropriate symbol
             if (currentWeather === "Rain") {
@@ -93,11 +73,34 @@ function citySearch(cityName) {
 
             $("#weatherToday").html(newDiv);
 
+
+            // the below variables are taken from the location API response
+            var lat = response.coord.lat;
+            var lon = response.coord.lon;
+            // The below is for the UV index - we have to call this again using a different API link
+            var queryURLUV = "https://api.openweathermap.org/data/2.5/uvi?&appid=43833fd258805487a99a9cb6665dbbce" + lat + "&lon=" + lon;
+            
+
+
+            $.ajax({
+                url: queryURLUV,
+                method: 'GET'
+            }).then(function (response) {
+                //    The line below ensures that the field is empty before we enter the requested data
+                $('#uvlDisplay').empty();
+                var uvResults = response.value;
+
+                var uvDisplay = $("<button class='btn bg-success'>").text("UV Index: " + response.value);
+
+                $('#uvlDisplay').html(uvDisplay);
+
+            });
+
         });
 
 
-// Below is a new function for the the 5 day weather forecast
-// we again need to use AJAX to "GET"(retrieve) data from the queryURL (that we state above) as we will later print this on to the page
+    // Below is a new function for the the 5 day weather forecast
+    // we again need to use AJAX to "GET"(retrieve) data from the queryURL (that we state above) as we will later print this on to the page
     $.ajax({
         url: queryURLforecast,
         method: 'GET'
@@ -109,7 +112,7 @@ function citySearch(cityName) {
         // We use a loop below to add the results to a list below the search menu.
         // These need to be buttons so we can click on these and retrieve the data
         for (var i = 0; i < results.length; i += 8) {
-        
+
             var fiveDayDiv = $("<div class='card shadow-lg text-white bg-primary mx-auto mb-10 p-2' style='width: 8.5rem; height: 11rem;'>");
 
             //Below stores the 
@@ -125,7 +128,7 @@ function citySearch(cityName) {
 
             var weather = results[i].weather[0].main
 
-// Below are our if statements used the show the weather icons
+            // Below are our if statements used the show the weather icons
             if (weather === "Rain") {
                 var icon = $('<img>').attr("src", "http://openweathermap.org/img/wn/09d.png");
                 icon.attr("style", "height: 40px; width: 40px");
@@ -159,3 +162,38 @@ function citySearch(cityName) {
 
 }
 pageLoad();
+
+// Below uses the click of the search button to :
+
+$("#searchCity").on("click", function (event) {
+    // Preventing the button from submitting the form before we ask it to
+    event.preventDefault();
+    // storing the city name and removing any additional unused space
+    var cityInput = $("#inputCity").val().trim();
+
+    //saving the search item and name to local storage
+    var textContent = $(this).siblings("input").val();
+    var storearr = [];
+    storearr.push(textContent);
+    localStorage.setItem('cityName', JSON.stringify(storearr));
+
+    citySearch(cityInput);
+    pageLoad();
+});
+
+// The function below runs and displays the last location searched for and reloads the search bar and displays it within the previous search div
+function pageLoad() {
+    var lastSearch = JSON.parse(localStorage.getItem("cityName"));
+    var searchDiv = $("<button class='btn border text-muted mt-1 shadow-sm bg-white rounded' style='width: 12rem;'>").text(lastSearch);
+    var psearch = $("<div>");
+    psearch.append(searchDiv)
+    $("#prevSearches").prepend(psearch);
+}
+
+// The below uses the previous search field to wait for a click on any of the buttons and reloads the data from history
+$("#prevSearches").on('click', '.btn', function (event) {
+    event.preventDefault();
+    console.log($(this).text());
+    citySearch($(this).text());
+
+});
