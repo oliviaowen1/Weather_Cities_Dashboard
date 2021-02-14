@@ -1,5 +1,4 @@
-// using moment.js this will allow us to display the current date
-// moment().format('LL');
+
 
 // the below function will let us search for a place and retrieve the info from the website using the api key
 function citySearch(cityName) {
