@@ -1,5 +1,3 @@
-
-
 // the below function will let us search for a place and retrieve the info from the website using the api key
 function citySearch(cityName) {
 
