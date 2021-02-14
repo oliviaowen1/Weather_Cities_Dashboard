@@ -22,7 +22,6 @@ function citySearch(cityName) {
             // using moment.js this will allow us to display the current date
             var mainDate = moment().format('LL');
 
-
             // We need to print the above information on the page within the main container
             // the below is asking the city name to display in text, in a h3 tag. It will display the city name as the API responds it as well as displaying the main date from the variable.
             var cityNameDisplay = $("<h3>").text(response.name);
@@ -32,7 +31,6 @@ function citySearch(cityName) {
             var humidDisplay = $("<p>").text("Humidity: " + response.main.humidity + " % ");
             var windDisplay = $("<p>").text("Wind Speed: " + response.wind.speed + " MPH ");
             var currentWeather = response.weather[0].main;
-
 
             // the below uses if and else statements to determine what the weather is and displays the appropriate symbol
             if (currentWeather === "Rain") {
@@ -76,8 +74,6 @@ function citySearch(cityName) {
             var lon = response.coord.lon;
             // The below is for the UV index - we have to call this again using a different API link
             var queryURLUV = "https://api.openweathermap.org/data/2.5/uvi?&appid=43833fd258805487a99a9cb6665dbbce&lat=" + lat + "&lon=" + lon;
-
-
 
             $.ajax({
                 url: queryURLUV,
