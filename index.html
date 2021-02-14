@@ -1,58 +1,66 @@
 <!doctype html>
 <html lang="en">
-  <head>
+
+<head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <!-- Bootstrap link -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
-  <!-- Our CSS Style sheet -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+    <!-- Our CSS Style sheet -->
     <link rel="stylesheet" type="text/css" href="style.css">
     <!-- Link to fontawesome for external fonts -->
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous"/>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
+        integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous" />
     <!-- Link for moment.js -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
     <!-- Page Title -->
     <title>Weather Dashboard</title>
-  </head>
+</head>
 
-  <body>
-      <!-- The page heading containing the title -->
+<body>
+    <!-- The page heading containing the title -->
     <div class="container-fluid text-center justify-content-center text-light bg-dark">
         <h1>Weather Dashboard</h1>
     </div>
     <!-- The below is the container for the weather information -->
     <div class="container">
-<!-- Below is the search bar-->
-            <div class="col-4 float-left searchLeft">
-                <nav class="navbar navbar-light bg-light shadow-lg p-3 mb-5 bg-white rounded">
-                    <h4>Enter a City:</h4>
-                        <form class="form-inline">
-                            <input id="inputCity" class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-                            <button id="searchCity" class="btn btn-primary my-2 my-sm-0" type="submit">Search</button>
-                        </form>
-                        <!-- Below will show previous search history -->
-                    <form id="prevSearches" class="mt-1">
-                    </form>
-                </nav>
+        <!-- Below is the search bar-->
+        <div class="col-4 float-left searchLeft">
+            <nav class="navbar navbar-light bg-light shadow-lg p-3 mb-5 bg-white rounded">
+                <h4>Enter a City:</h4>
+                <form class="form-inline">
+                    <input id="inputCity" class="form-control mr-sm-2" type="search" placeholder="Search"
+                        aria-label="Search">
+                    <button id="searchCity" class="btn btn-primary my-2 my-sm-0" type="submit">Search</button>
+                </form>
+                <!-- Below will show previous search history -->
+                <form id="prevSearches" class="mt-1">
+                </form>
+            </nav>
+        </div>
+        <!-- The below is the current weather for today -->
+        <div class="col-8 float-right weatherToday">
+            <div class="card bg-light text-dark  rem shadow-lg  bg-white rounded"
+                style="width: 800; height: 19rem; float-right">
+                <div id="weatherToday"></div>
+                <div id="uvlDisplay"></div>
             </div>
-    <!-- The below is the current weather for today -->
-            <div class="col-8 float-right weatherToday">
-                <div class="card bg-light text-dark  rem shadow-lg  bg-white rounded" style="width: 800; height: 19rem; float-right">
-                    <div id="weatherToday"></div>
-                    <div id="uvlDisplay"></div>
-                </div>
-                    <br>
-<!-- The future 5 days forecasts will display below -->
-                    <h2>5-Day Forecast:</h2>
-                <div  id="fiveDayForecast" class="row">
-                </div>
-            </div> 
+            <br>
+            <!-- The future 5 days forecasts will display below -->
+            <h2>5-Day Forecast:</h2>
+            <div id="fiveDayForecast" class="row">
+            </div>
         </div>
     </div>
-  
+    </div>
+
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
     <script type="text/javascript" src="script.js"></script>
-  </body>
+</body>
+
 </html>
