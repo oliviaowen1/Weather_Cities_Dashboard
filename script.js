@@ -78,8 +78,8 @@ function citySearch(cityName) {
             var lat = response.coord.lat;
             var lon = response.coord.lon;
             // The below is for the UV index - we have to call this again using a different API link
-            var queryURLUV = "https://api.openweathermap.org/data/2.5/uvi?&appid=43833fd258805487a99a9cb6665dbbce&lat=" + lat  + "&lon=" + lon;
-            
+            var queryURLUV = "https://api.openweathermap.org/data/2.5/uvi?&appid=43833fd258805487a99a9cb6665dbbce&lat=" + lat + "&lon=" + lon;
+
 
 
             $.ajax({
