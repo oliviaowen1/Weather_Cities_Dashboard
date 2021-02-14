@@ -63,7 +63,8 @@ function citySearch(cityName) {
             }
             //below creates a new div to hold and display all of the above information.
             var newDiv = $('<div>');
-
+            
+// The append function adds it to the page
             newDiv.append(displayMainDate, currentIcon, tempDisplay, humidDisplay, windDisplay);
 
             $("#weatherToday").html(newDiv);
